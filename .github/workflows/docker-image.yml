@@ -14,5 +14,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag ashokctn01/auth-ms:${GITHUB_SHA::8}
+
+    - name: Log in to Docker registry
+      run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+
+    - name: Push the Docker image
+      run: docker push ashokctn01/auth-ms:${GITHUB_SHA::8}
+      
