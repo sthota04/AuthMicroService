@@ -7,8 +7,12 @@ require('dotenv').config();
 const app = express();
 const port = 3000;
 
+const cors = require('cors'); // Import cors package
+
 // Middleware
 app.use(bodyParser.json());
+app.use(cors()); // Use cors middleware to allow all origins
+
 
 // Mock database
 const users = [
